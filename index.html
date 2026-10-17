@@ -245,7 +245,12 @@ footer{padding:2.2rem 5%;border-top:1px solid var(--border);display:flex;justify
 @media(max-width:600px){section{padding:5rem 5%;}.sgrid,.pgrid{grid-template-columns:1fr;}}
 
 /* ===== MOBILE & TACTILE ===== */
-html{-webkit-text-size-adjust:100%;}
+html{-webkit-text-size-adjust:100%;overflow-x:hidden;}
+body{overflow-x:clip;max-width:100%;}
+#nc{width:100%;height:100%;}
+.mmenu{visibility:hidden;transition:transform .4s var(--ease),visibility .4s;}
+.mmenu.open{visibility:visible;}
+.agrid>*,.cgrid>*{min-width:0;}
 .hname{font-size:clamp(2.4rem,5vw,4.2rem);line-height:1.08;padding:0 .12em .1em 0;overflow:visible;}
 .hcnt{max-width:760px;}
 .sgrid{grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));}
@@ -261,7 +266,7 @@ html{-webkit-text-size-adjust:100%;}
 }
 @media(max-width:900px){
   #hero{min-height:100svh;padding:7rem 5% 4rem;}
-  .hname{font-size:clamp(2.6rem,13vw,4rem);}
+  .hname{font-size:clamp(1.9rem,10.5vw,3.4rem);max-width:100%;}
   .hbadge{font-size:.62rem;line-height:1.5;border-radius:16px;}
   .hslogan{max-width:100%;}
   .hcta{flex-direction:column;align-items:stretch;}
@@ -402,7 +407,7 @@ function hsub(e){e.preventDefault();const b=document.getElementById('sbtn');b.te
 // Network canvas
 const cv=document.getElementById('nc'),ctx=cv.getContext('2d');
 let W,H,nodes=[];
-function init(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;nodes=Array.from({length:W<700?22:55},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,r:Math.random()*1.8+.8}));}
+function init(){W=cv.width=cv.parentElement.clientWidth;H=cv.height=cv.parentElement.clientHeight;nodes=Array.from({length:W<700?22:55},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,r:Math.random()*1.8+.8}));}
 function draw(){if(document.hidden){requestAnimationFrame(draw);return;}ctx.clearRect(0,0,W,H);nodes.forEach(n=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;});for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<115){ctx.beginPath();ctx.strokeStyle=`rgba(0,240,181,${.14*(1-d/115)})`;ctx.lineWidth=.5;ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.stroke();}}nodes.forEach(n=>{ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fillStyle='rgba(0,240,181,.45)';ctx.fill();});requestAnimationFrame(draw);}
 init();draw();let lw=innerWidth;addEventListener('resize',()=>{if(innerWidth!==lw){lw=innerWidth;init();}});
 // Parallax
