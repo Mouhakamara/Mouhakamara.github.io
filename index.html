@@ -10,8 +10,9 @@
 <meta property="og:description" content="Étudiant en réseaux informatiques à Dakar, orienté cybersécurité."/>
 <meta property="og:type" content="website"/>
 <link rel="canonical" href="https://mouhakamara.github.io/"/>
+<meta name="theme-color" content="#04040a"/>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person",...}
+{"@context":"https://schema.org","@type":"Person","name":"Mohamadou Lamine Kamara","alternateName":"Mouhamed Kamara","url":"https://mouhakamara.github.io/","jobTitle":"Étudiant en Réseaux informatiques","address":{"@type":"PostalAddress","addressLocality":"Dakar","addressCountry":"SN"},"sameAs":["https://www.linkedin.com/in/mohamadou-lamine-kamara","https://github.com/Mouhakamara"]}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -242,6 +243,46 @@ footer{padding:2.2rem 5%;border-top:1px solid var(--border);display:flex;justify
   .hbg{display:flex;}
 }
 @media(max-width:600px){section{padding:5rem 5%;}.sgrid,.pgrid{grid-template-columns:1fr;}}
+
+/* ===== MOBILE & TACTILE ===== */
+html{-webkit-text-size-adjust:100%;}
+.hname{font-size:clamp(2.8rem,6vw,5.5rem);}
+.sgrid{grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));}
+.pgrid{grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));}
+.fg input,.fg textarea{font-size:16px;}
+.btnp,.btns,.bsend,#thm{min-height:44px;display:inline-flex;align-items:center;justify-content:center;}
+.shandle{min-width:0;overflow-wrap:anywhere;}
+@media(hover:none),(pointer:coarse){
+  body,#thm,.hbg,.btnp,.btns,.bsend,.pcard,.mcls{cursor:auto;}
+  #cur{display:none;}
+  .pov{opacity:1;}
+  .plink{transform:none;}
+}
+@media(max-width:900px){
+  #hero{min-height:100svh;padding:7rem 5% 4rem;}
+  .hname{font-size:clamp(2.6rem,13vw,4rem);}
+  .hbadge{font-size:.62rem;line-height:1.5;border-radius:16px;}
+  .hslogan{max-width:100%;}
+  .hcta{flex-direction:column;align-items:stretch;}
+  .hcta a{text-align:center;margin:0 !important;}
+  .scrhint{display:none;}
+  section{padding:4.5rem 5%;}
+  .agrid{gap:3rem;}
+  .aav{width:200px;height:200px;font-size:3rem;}
+  .asbdg{right:-4px;}
+  .slink{flex-wrap:wrap;gap:.4rem .8rem;}
+  .slink:hover{transform:none;}
+  .shandle{margin-left:0;flex-basis:100%;font-size:.66rem;}
+  .cgrid{gap:3rem;}
+  footer{flex-direction:column;text-align:center;}
+  .mmenu a{font-size:1.7rem;}
+  .tcnt{padding:1.2rem;}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}
+  .rev,.rl,.rr{opacity:1;transform:none;}
+  #nc{display:none;}
+}
 </style>
 </head>
 <body>
@@ -249,9 +290,9 @@ footer{padding:2.2rem 5%;border-top:1px solid var(--border);display:flex;justify
 <div id="sbar"></div>
 <div id="cur"><div id="cdot"></div><div id="cring"></div></div>
 <div class="mmenu" id="mmenu"><button class="mcls" id="mcls">✕</button>
-<a href="#about" onclick="cm()">À propos</a><a href="#skills" onclick="cm()">Compétences</a><a href="#projects" onclick="cm()">Projets</a><a href="#experience" onclick="cm()">Parcours</a><a href="#contact" onclick="cm()">Contact</a></div>
+<a href="#about" onclick="cm()">À propos</a><a href="#skills" onclick="cm()">Compétences</a><a href="#projects" onclick="cm()">Projets</a><a href="#experience" onclick="cm()">Parcours</a><a href="#certifications" onclick="cm()">Certifications</a><a href="#contact" onclick="cm()">Contact</a></div>
 <nav id="nav"><div class="nlogo">MLK</div>
-<ul class="nlinks"><li><a href="#about">À propos</a></li><li><a href="#skills">Compétences</a></li><li><a href="#projects">Projets</a></li><li><a href="#experience">Parcours</a></li><li><a href="#contact">Contact</a></li></ul>
+<ul class="nlinks"><li><a href="#about">À propos</a></li><li><a href="#skills">Compétences</a></li><li><a href="#projects">Projets</a></li><li><a href="#experience">Parcours</a></li><li><a href="#certifications">Certifications</a></li><li><a href="#contact">Contact</a></li></ul>
 <div style="display:flex;gap:.8rem;align-items:center"><button id="thm">◐ Mode</button><button class="hbg" id="hbg"><span></span><span></span><span></span></button></div></nav>
 
 <section id="hero"><canvas id="nc"></canvas>
@@ -327,7 +368,7 @@ footer{padding:2.2rem 5%;border-top:1px solid var(--border);display:flex;justify
 
 <script>
 // Loader
-window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('gone'),1800));
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('gone'),700));
 // Cursor
 const cd=document.getElementById('cdot'),cr=document.getElementById('cring');
 let mx=0,my=0,rx=0,ry=0;
@@ -360,9 +401,9 @@ function hsub(e){e.preventDefault();const b=document.getElementById('sbtn');b.te
 // Network canvas
 const cv=document.getElementById('nc'),ctx=cv.getContext('2d');
 let W,H,nodes=[];
-function init(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;nodes=Array.from({length:55},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,r:Math.random()*1.8+.8}));}
-function draw(){ctx.clearRect(0,0,W,H);nodes.forEach(n=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;});for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<115){ctx.beginPath();ctx.strokeStyle=`rgba(0,240,181,${.14*(1-d/115)})`;ctx.lineWidth=.5;ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.stroke();}}nodes.forEach(n=>{ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fillStyle='rgba(0,240,181,.45)';ctx.fill();});requestAnimationFrame(draw);}
-init();draw();window.addEventListener('resize',init);
+function init(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;nodes=Array.from({length:W<700?22:55},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,r:Math.random()*1.8+.8}));}
+function draw(){if(document.hidden){requestAnimationFrame(draw);return;}ctx.clearRect(0,0,W,H);nodes.forEach(n=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;});for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<115){ctx.beginPath();ctx.strokeStyle=`rgba(0,240,181,${.14*(1-d/115)})`;ctx.lineWidth=.5;ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.stroke();}}nodes.forEach(n=>{ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fillStyle='rgba(0,240,181,.45)';ctx.fill();});requestAnimationFrame(draw);}
+init();draw();let lw=innerWidth;addEventListener('resize',()=>{if(innerWidth!==lw){lw=innerWidth;init();}});
 // Parallax
 document.getElementById('hero').addEventListener('mousemove',e=>{const ox=(e.clientX/window.innerWidth-.5)*18,oy=(e.clientY/window.innerHeight-.5)*18;document.querySelectorAll('.orb').forEach((o,i)=>{o.style.transform=`translate(${ox*(i+1)*.4}px,${oy*(i+1)*.4}px)`;});});
 </script>
